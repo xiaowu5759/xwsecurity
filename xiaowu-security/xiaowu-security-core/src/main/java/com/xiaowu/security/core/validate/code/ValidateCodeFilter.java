@@ -40,6 +40,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
 
+
     // 校验码处理器管理器（模板方法）
     @Autowired
     private ValidateCodeProcessorHolder validateCodeProcessorHolder;
@@ -107,6 +108,35 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                 validateCodeProcessorHolder.findValidateCode
             }catch (ValidateCodeException ex){
                 authenticationFailureHandler.onAuthenticationFailure(request,response,ex);
+        // 将配置文件里面的url切开
+        String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImage().getUrl(),",");
+        for (String configUrl : configUrls){
+            urls.add(configUrl);
+        }
+        // 登录接口一定需要的验证码
+        urls.add("/authentication/form");
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+//        log.info("enter:{}",this.getClass());
+//        if(StringUtils.equals("/authentication/form", request.getRequestURI()) && StringUtils.equalsIgnoreCase(request.getMethod(), "post"))
+        // 执行判断是否需要过滤
+        boolean action = false;
+        for (String url : urls){
+            if(pathMatcher.match(url,request.getRequestURI())){
+                action = true;
+            }
+        }
+
+        if(action){
+            try{
+                // 作校验，从session中拿东西，校验工具需要ServletWebRequest参数，所以包装一下
+                validate(new ServletWebRequest(request));
+            }catch (ValidateCodeException ex){
+                // 自定义异常,处理异常
+                authenticationFailureHandler.onAuthenticationFailure(request,response,ex);
+                // 直接返回
                 return;
             }
         }
