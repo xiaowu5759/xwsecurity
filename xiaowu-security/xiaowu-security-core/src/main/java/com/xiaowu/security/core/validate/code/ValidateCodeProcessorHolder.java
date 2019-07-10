@@ -14,6 +14,10 @@ public class ValidateCodeProcessorHolder {
     @Autowired
     private Map<String, ValidateCodeProcessor> validateCodeProcessorMap;
 
+    public ValidateCodeProcessor findValidateCodeProcessor(ValidateCodeType type){
+        return findValidateCodeProcessor(type.toString().toLowerCase());
+    }
+
     public ValidateCodeProcessor findValidateCodeProcessor(String type){
         // 先获取bean名字
         String name = type.toLowerCase() + ValidateCodeProcessor.class.getSimpleName();

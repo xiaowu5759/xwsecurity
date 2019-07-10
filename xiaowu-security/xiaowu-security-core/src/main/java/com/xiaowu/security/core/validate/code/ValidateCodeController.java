@@ -39,7 +39,7 @@ public class ValidateCodeController {
      */
     @RequestMapping(value = "/code/{type}",method = RequestMethod.GET)
     public void createCode(HttpServletResponse response, HttpServletRequest request, @PathVariable String type) throws Exception {
-        validateCodeProcessorMap.get(type+"CodeProcessor").create(new ServletWebRequest(request,response));
+        validateCodeProcessorMap.get(type+"ValidateCodeProcessor").create(new ServletWebRequest(request,response));
     }
 
 

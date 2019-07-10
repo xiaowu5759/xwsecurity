@@ -1,6 +1,7 @@
 package com.xiaowu.security.core.authentication.mobile;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -24,12 +25,15 @@ public class SmsAuthenticaitonSecurityConfig extends SecurityConfigurerAdapter<D
     @Autowired
     private AuthenticationFailureHandler xiaowuAuthenticationFailureHandler;
 
+//    @Qualifier("")
     @Autowired
+//    @Qualifier("myUserDetailsService")
     private UserDetailsService userDetailsService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
 //        super.configure(builder);
+        // 配置Filter
         SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();
         // 配置authenticationManager
         smsAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
