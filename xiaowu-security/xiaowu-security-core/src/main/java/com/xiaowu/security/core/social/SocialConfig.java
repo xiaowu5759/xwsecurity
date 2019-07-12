@@ -36,9 +36,10 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Bean
     public SpringSocialConfigurer xiaowuSocialSecurityConfig(){
-        String filterProcessUrl = securityProperties.getSocial().getQq()
-        XiaoWuSpringSocialConfigurer xiaoWuSpringSocialConfigurer = new XiaoWuSpringSocialConfigurer()
+        String filterProcessUrl = securityProperties.getSocial().getFilterProcessesUrl();
+        XiaoWuSpringSocialConfigurer xiaoWuSpringSocialConfigurer = new XiaoWuSpringSocialConfigurer(filterProcessUrl);
         return xiaoWuSpringSocialConfigurer;
+//        return new SpringSocialConfigurer;
     }
 
 }

@@ -7,6 +7,10 @@ import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Template;
 
+/**
+ * 和OAuth2AuthenticationService<S>
+ *     不是一个
+ */
 public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
 
     private String appId;
@@ -24,7 +28,9 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
      * @param appSecret
      */
     public QQServiceProvider(String appId, String appSecret ) {
-        super(new OAuth2Template(appId,appSecret,URL_AUTHORIZE,URL_ACCESS_TOKEN));
+        // OAuth2Template，用授权码交换Token
+        // 期待返回的 ContentType 应该是json
+        super(new QQOAuth2Template(appId,appSecret,URL_AUTHORIZE,URL_ACCESS_TOKEN));
     }
 
     /**

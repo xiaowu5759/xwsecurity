@@ -2,6 +2,7 @@ package com.xiaowu.security.browser;
 
 
 import com.xiaowu.security.browser.support.SimpleResponse;
+import com.xiaowu.security.core.properties.SecurityConstants;
 import com.xiaowu.security.core.properties.SecurityProperties;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,7 @@ public class BrowserSecurityController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/authentication/require", method = RequestMethod.GET)
+    @RequestMapping(value = SecurityConstants.DEFAULT_UNAUTHENTICATION_URL, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)  // 返回的状态码 return 401
     public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

@@ -7,8 +7,9 @@ import lombok.Setter;
 @Setter
 public class SocialProperties {
 
-    private String
+    private String filterProcessesUrl = "/auth";
 
-    private QQProperties qq;
+    // 设置初始化的值
+    private QQProperties qq = new QQProperties();
 
 }

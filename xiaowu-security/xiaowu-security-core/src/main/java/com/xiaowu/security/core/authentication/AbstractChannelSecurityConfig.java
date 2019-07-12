@@ -19,7 +19,7 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
 
     protected void applyPasswordAuthenticationConfig(HttpSecurity http) throws Exception{
         http.formLogin()
-                .loginPage(SecurityConstants.DEFAULT_LOGIN_PAGE_URL)
+                .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
                 .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
                 .successHandler(xiaowuauthenticationSuccessHandler)
                 .failureHandler(xiaowuauthenticationFailureHandler);
