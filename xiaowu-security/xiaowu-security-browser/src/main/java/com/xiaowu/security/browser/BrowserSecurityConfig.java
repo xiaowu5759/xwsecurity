@@ -25,6 +25,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -33,7 +34,7 @@ import javax.sql.DataSource;
  * 只配置和浏览器登录安全相关的
  */
 @Configuration
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -58,11 +59,14 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
-    @Autowired
-    protected AuthenticationSuccessHandler xiaowuauthenticationSuccessHandler;
+//    @Autowired
+//    protected AuthenticationSuccessHandler xiaowuauthenticationSuccessHandler;
+//
+//    @Autowired
+//    protected AuthenticationFailureHandler xiaowuauthenticationFailureHandler;
 
     @Autowired
-    protected AuthenticationFailureHandler xiaowuauthenticationFailureHandler;
+    private SpringSocialConfigurer xiaowuSocialSecurityConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -107,7 +111,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 //        validateCodeFilter.afterPropertiesSet();
 
         // 这是密码登录相关的配置
-//        applyPasswordAuthenticationConfig(http);
+        applyPasswordAuthenticationConfig(http);
 
         // 至少是表单登录
         http.apply(validateCodeSecurityConfig)
@@ -115,12 +119,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
             // 短信验证相关的配置
             .apply(smsAuthenticaitonSecurityConfig)
                 .and()
-            .formLogin()
-                .loginPage(SecurityConstants.DEFAULT_LOGIN_PAGE_URL)
-                .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
-                .successHandler(xiaowuauthenticationSuccessHandler)
-                .failureHandler(xiaowuauthenticationFailureHandler)
+            // 添加过滤器等相关配置
+            .apply(xiaowuSocialSecurityConfig)
                 .and()
+
             // 浏览器特有的配置
             .rememberMe()
                 .tokenRepository(persistentTokenRepository())

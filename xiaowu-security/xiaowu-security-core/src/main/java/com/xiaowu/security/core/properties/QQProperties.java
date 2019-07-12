@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 @Getter
 @Setter
+// TODO: 新版本中没有对应依赖
 public class QQProperties extends SocialProperties {
 
     // application id

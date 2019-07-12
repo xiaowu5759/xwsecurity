@@ -13,7 +13,7 @@ public class SecurityProperties {
 
     private ValidateCodeProperties code = new ValidateCodeProperties();
 
-    private SocialProperties socialProperties;
+    private SocialProperties social;
 
 
 }

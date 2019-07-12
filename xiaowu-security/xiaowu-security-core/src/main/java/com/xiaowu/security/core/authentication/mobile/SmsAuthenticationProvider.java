@@ -7,6 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+// TODO: 这里验证逻辑有问题，应该一个手机号对应相应的验证码
 public class SmsAuthenticationProvider implements AuthenticationProvider {
 
     private UserDetailsService userDetailsService;

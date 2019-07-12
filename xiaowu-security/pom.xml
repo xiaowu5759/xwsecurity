@@ -26,6 +26,9 @@
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
                 <!--Cairo-SR7-->
+                <!--[main] ERROR org.springframework.boot.SpringApplication - Application startup failed-->
+                <!--java.lang.NoSuchMethodError: org.springframework.boot.builder.SpringApplicationBuilder.<init>([Ljava/lang/Class;)V-->
+                <!--依赖管理存在很大的问题-->
                 <version>Brussels-SR17</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -33,7 +36,8 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.RELEASE</version>
+                <!--Finchley.RELEASE-->
+                <version>Dalston.SR5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

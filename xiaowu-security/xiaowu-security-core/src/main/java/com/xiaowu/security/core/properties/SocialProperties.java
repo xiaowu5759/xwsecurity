@@ -6,5 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SocialProperties {
-    private QQProperties qqProperties;
+
+    private String
+
+    private QQProperties qq;
+
 }
