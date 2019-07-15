@@ -3,6 +3,9 @@ package com.xiaowu.security.core.social.qq.api;
 import lombok.Data;
 
 @Data
+/**
+ * 需要数据，只能比接口返回的多，不能比接口少
+ */
 public class QQUserInfo {
     // 返回码
     private String ret;
@@ -16,6 +19,12 @@ public class QQUserInfo {
     // 不知道什么东西，文档上没写，但是实际api返回里有。
     private String is_lost;
 
+    // 用户在QQ空间的昵称。
+    private String nickname;
+
+    // 性别。 如果获取不到则默认返回”男”
+    private String gender;
+
     // 省(直辖市)
     private String province;
 
@@ -25,8 +34,8 @@ public class QQUserInfo {
     // 出生年月
     private String year;
 
-    // 用户在QQ空间的昵称。
-    private String nickname;
+    // 星座
+    private String constellation;
 
     // 大小为30×30像素的QQ空间头像URL。
     private String figureurl;
@@ -43,19 +52,22 @@ public class QQUserInfo {
     // 大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100×100的头像，但40×40像素则是一定会有。
     private String figureurl_qq_2;
 
-    // 性别。 如果获取不到则默认返回”男”
-    private String gender;
+    //
+    private String figureurl_qq;
+
+    //
+    private String figureurl_type;
 
     // 标识用户是否为黄钻用户（0：不是；1：是）。
     private String is_yellow_vip;
 
-    // 标识用户是否为黄钻用户（0：不是；1：是）
+    // 标识用户是否为qq会员（0：不是；1：是）
     private String vip;
 
     // 黄钻等级
     private String yellow_vip_level;
 
-    // 黄钻等级
+    // 等级
     private String level;
 
     // 标识是否为年费黄钻用户（0：不是； 1：是）

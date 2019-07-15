@@ -31,6 +31,8 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
         // OAuth2Template，用授权码交换Token
         // 期待返回的 ContentType 应该是json
         super(new QQOAuth2Template(appId,appSecret,URL_AUTHORIZE,URL_ACCESS_TOKEN));
+        // 将传入的appId,设置到本地变量中
+        this.appId = appId;
     }
 
     /**

@@ -11,6 +11,8 @@ public class BrowserProperties {
     // 指定默认值
     private  String loginPage = "/xiaowu-signIn.html";
 
+    private String signUpUrl = "/xiaowu-signUp.html";
+
     // 登录响应的方式,默认是json，枚举类型
     private LoginType loginType = LoginType.JSON;
 

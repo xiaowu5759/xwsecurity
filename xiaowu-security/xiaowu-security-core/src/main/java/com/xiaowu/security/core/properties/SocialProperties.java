@@ -12,4 +12,6 @@ public class SocialProperties {
     // 设置初始化的值
     private QQProperties qq = new QQProperties();
 
+    private WeixinProperties weixin = new WeixinProperties();
+
 }

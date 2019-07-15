@@ -41,11 +41,12 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         String url = String.format(URL_GET_USERINGO,appId,openId);
         String result = getRestTemplate().getForObject(url,String.class);
         log.info(result);
-
+        QQUserInfo qqUserInfo;
         // 将openId 放到userInfo中
         try {
-
-            return objectMapper.readValue(result, QQUserInfo.class);
+            qqUserInfo = objectMapper.readValue(result, QQUserInfo.class);
+            qqUserInfo.setOpenId(openId);
+            return qqUserInfo;
         } catch (Exception e) {
             // 包装成运行时异常
             throw new RuntimeException("获取用户信息失败");

@@ -7,6 +7,11 @@ import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
 
 public class QQAdapter implements ApiAdapter<QQ> {
+    /**
+     * 测试连接？
+     * @param api
+     * @return
+     */
     @Override
     public boolean test(QQ api) {
         return true;
@@ -20,6 +25,7 @@ public class QQAdapter implements ApiAdapter<QQ> {
         values.setImageUrl(userInfo.getFigureurl_qq_1());
         values.setProfileUrl(null);
         values.setProviderUserId(userInfo.getOpenId());
+//        values.setProviderUserId(null);
     }
 
     @Override
