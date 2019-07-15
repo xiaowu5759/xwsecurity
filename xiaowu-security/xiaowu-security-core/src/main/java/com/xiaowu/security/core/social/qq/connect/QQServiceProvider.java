@@ -36,6 +36,7 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
     }
 
     /**
+     * 标准OAuth协议来说，只需要accessToken,利用accessToken换openId
      * 获取接口的实现
      * @param accessToken
      * @return

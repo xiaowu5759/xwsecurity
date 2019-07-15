@@ -34,6 +34,12 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
     private ConnectionSignUp connectionSignUp;
 
     @Override
+    protected ConnectionFactory<?> createConnectionFactory() {
+        QQProperties qqConfig =securityProperties.getSocial().getQq();
+        return new QQConnectionFactory(qqConfig.getProviderId(), qqConfig.getAppId(), qqConfig.getAppSecret());
+    }
+
+    @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
         repository.setTablePrefix("xiaowu_");
@@ -41,11 +47,5 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
             repository.setConnectionSignUp(connectionSignUp);
         }
         return repository;
-    }
-
-    @Override
-    protected ConnectionFactory<?> createConnectionFactory() {
-        QQProperties qqConfig =securityProperties.getSocial().getQq();
-        return new QQConnectionFactory(qqConfig.getProviderId(), qqConfig.getAppId(), qqConfig.getAppSecret());
     }
 }

@@ -16,7 +16,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import javax.sql.DataSource;
 
 /**
- * 配置文件
+ * SpringSocial配置文件
  */
 @Configuration
 @EnableSocial

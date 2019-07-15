@@ -10,8 +10,7 @@ public class QQConnectionFactory extends OAuth2ConnectionFactory<QQ> {
     /**
      *
      * @param providerId  // 提供商的唯一标识
-     * @param serviceProvider
-     * @param apiAdapter
+     * @param appSecret
      */
     public QQConnectionFactory(String providerId, String appId, String appSecret) {
         super(providerId, new QQServiceProvider(appId, appSecret ), new QQAdapter());
