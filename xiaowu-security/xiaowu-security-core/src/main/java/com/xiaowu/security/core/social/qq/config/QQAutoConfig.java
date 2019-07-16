@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.connect.ConnectionFactoryLocator;
@@ -22,6 +23,9 @@ import javax.sql.DataSource;
 // 没配的时候，希望不起作用
 // 被配置值了，下面的才生效
 @ConditionalOnProperty(prefix = "xiaowu.security.social.qq", name = "app-id")
+// 这里设置是选择对应的实现
+// TODO: 不知道为什么这个还是蛮重要的
+@Order(2)
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 
     @Autowired
@@ -39,6 +43,7 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
         return new QQConnectionFactory(qqConfig.getProviderId(), qqConfig.getAppId(), qqConfig.getAppSecret());
     }
 
+    // TODO: JdbcUserConnectionRepository 配置优先问题
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
@@ -48,4 +53,6 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
         }
         return repository;
     }
+
+
 }

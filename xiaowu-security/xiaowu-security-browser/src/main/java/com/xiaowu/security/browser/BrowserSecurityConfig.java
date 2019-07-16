@@ -129,6 +129,10 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
                 .and()
+            // session管理
+            .sessionManagement()
+                .invalidSessionUrl("/session/invalid")
+                .and()
             // 下面这些 都是授权的配置
             .authorizeRequests()
                 .antMatchers(
@@ -137,7 +141,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getLoginPage(),
                         securityProperties.getBrowser().getSignUpUrl(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",
-                        "/user/regist").permitAll()
+                        "/user/regist","/social/user",
+                        "/session/invalid").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -7,7 +7,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
  * 自定义 SpringSocialConfigurer中的过滤器
  * 覆盖方法
  */
-public class XiaoWuSpringSocialConfigurer extends SpringSocialConfigurer {
+public class XiaowuSpringSocialConfigurer extends SpringSocialConfigurer {
 
     private String filterProcessesUrl;
 
@@ -15,7 +15,7 @@ public class XiaoWuSpringSocialConfigurer extends SpringSocialConfigurer {
      * 在构造函数中，将值传进来
      * @param filterProcessesUrl
      */
-    public XiaoWuSpringSocialConfigurer(String filterProcessesUrl){
+    public XiaowuSpringSocialConfigurer(String filterProcessesUrl){
         this.filterProcessesUrl = filterProcessesUrl;
     }
 

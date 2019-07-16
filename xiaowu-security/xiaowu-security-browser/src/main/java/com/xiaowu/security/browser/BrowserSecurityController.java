@@ -87,4 +87,11 @@ public class BrowserSecurityController {
         userInfo.setHeadimg(connection.getImageUrl());
         return userInfo;
     }
+
+    @RequestMapping(value = "/session/invalid",method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)  // 返回的状态码 return 401
+    public SimpleResponse sessionInvalid(){
+        String message = "session失效";
+        return new SimpleResponse(message);
+    }
 }

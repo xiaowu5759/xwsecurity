@@ -22,7 +22,7 @@ public class WeixinImpl extends AbstractOAuth2ApiBinding implements Weixin{
     /**
      * 工具类,将json串转换为对象
      */
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();;
 
     public WeixinImpl(String accessToken){
         super(accessToken,TokenStrategy.ACCESS_TOKEN_PARAMETER);
@@ -47,9 +47,11 @@ public class WeixinImpl extends AbstractOAuth2ApiBinding implements Weixin{
      */
     @Override
     public WeixinUserInfo getUserInfo(String openId) {
+        // 这里拿url直接访问，有问题的
+        // {"errcode":41001,"errmsg":"access_token missing, hints: [ req_id: yEHdW34ce-vzDSaa ]"}
         String url = URL_GET_USER_INFO + openId;
         String result = getRestTemplate().getForObject(url, String.class);
-        log.info(result);
+        log.info("获取微信的数据结果：{}",result);
         if(StringUtils.contains(result, "errcode")){
             return null;
         }

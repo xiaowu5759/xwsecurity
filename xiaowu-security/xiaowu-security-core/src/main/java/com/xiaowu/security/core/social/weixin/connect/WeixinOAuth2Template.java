@@ -4,10 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 
 @Slf4j
@@ -23,11 +27,13 @@ public class WeixinOAuth2Template extends OAuth2Template{
 
 	public WeixinOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
 		super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
+//		String clientInfo = "?client_id=" + formEncode(clientId);
 		setUseParametersForClientAuthentication(true);
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.accessTokenUrl = accessTokenUrl;
 	}
+
 
 	/**
 	 * 与OAuth默认参数不同
@@ -56,7 +62,7 @@ public class WeixinOAuth2Template extends OAuth2Template{
 		accessTokenRequestUrl.append("&code="+authorizationCode);
 		accessTokenRequestUrl.append("&grant_type=authorization_code");
 		accessTokenRequestUrl.append("&redirect_uri="+redirectUri);
-
+//		log.info(accessTokenRequestUrl.toString());
 		return getAccessToken(accessTokenRequestUrl);
 	}
 
@@ -92,5 +98,35 @@ public class WeixinOAuth2Template extends OAuth2Template{
 		// 封装
 		accessToken.setOpenId(MapUtils.getString(result, "openid"));
 		return accessToken;
+	}
+
+	/**
+	 * 微信 获取授权码请求 与标准不同
+	 * 构建获取授权码的请求。也就是引导用户跳转到微信的地址。
+	 */
+	@Override
+	public String buildAuthenticateUrl(OAuth2Parameters parameters) {
+//		return super.buildAuthenticateUrl(parameters);
+		String url = super.buildAuthenticateUrl(parameters);
+		url = url + "&appid="+clientId+"&scope=snsapi_login";
+		return url;
+	}
+
+	@Override
+	public String buildAuthorizeUrl(OAuth2Parameters parameters) {
+//		return super.buildAuthorizeUrl(parameters);
+		return buildAuthenticateUrl(parameters);
+	}
+
+	/**
+	 * 微信返回的contentType 是html/text,添加相应的HttpMessageConverter来处理
+	 * @return
+	 */
+	@Override
+	protected RestTemplate createRestTemplate() {
+//		return super.createRestTemplate();
+		RestTemplate restTemplate = super.createRestTemplate();
+		restTemplate.getMessageConverters().add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		return restTemplate;
 	}
 }

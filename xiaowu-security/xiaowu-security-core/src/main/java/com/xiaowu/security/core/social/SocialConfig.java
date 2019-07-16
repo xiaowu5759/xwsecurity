@@ -8,6 +8,7 @@ import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -28,6 +29,12 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired(required = false)  //不一定会提供,浏览器情况下就不需要做处理
+    private ConnectionSignUp connectionSignUp;
+
     /**
      * 注册一个bean
      * xiaowuSocialSecurityConfig
@@ -36,11 +43,21 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Bean
     public SpringSocialConfigurer xiaowuSocialSecurityConfig(){
         String filterProcessUrl = securityProperties.getSocial().getFilterProcessesUrl();
-        XiaoWuSpringSocialConfigurer xiaoWuSpringSocialConfigurer = new XiaoWuSpringSocialConfigurer(filterProcessUrl);
+        XiaowuSpringSocialConfigurer xiaowuSpringSocialConfigurer = new XiaowuSpringSocialConfigurer(filterProcessUrl);
         // 设置我们自己的注册页
-        xiaoWuSpringSocialConfigurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
-        return xiaoWuSpringSocialConfigurer;
+        xiaowuSpringSocialConfigurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
+        return xiaowuSpringSocialConfigurer;
 //        return new SpringSocialConfigurer;
+    }
+
+    @Override
+    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+        repository.setTablePrefix("xiaowu_");
+        if(connectionSignUp != null){
+            repository.setConnectionSignUp(connectionSignUp);
+        }
+        return repository;
     }
 
     /**
