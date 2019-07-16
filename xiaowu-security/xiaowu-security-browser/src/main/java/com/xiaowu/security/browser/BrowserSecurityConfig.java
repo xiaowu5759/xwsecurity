@@ -2,6 +2,7 @@ package com.xiaowu.security.browser;
 
 import com.xiaowu.security.browser.authentication.XiaowuAuthenticationFailureHandler;
 import com.xiaowu.security.browser.authentication.XiaowuAuthenticationSuccessHandler;
+import com.xiaowu.security.browser.session.XiaowuExpiredSessionStrategy;
 import com.xiaowu.security.core.authentication.AbstractChannelSecurityConfig;
 import com.xiaowu.security.core.authentication.mobile.SmsAuthenticaitonSecurityConfig;
 import com.xiaowu.security.core.properties.SecurityConstants;
@@ -25,6 +26,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -67,6 +70,12 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     private SpringSocialConfigurer xiaowuSocialSecurityConfig;
+
+    @Autowired
+    private InvalidSessionStrategy invalidSessionStrategy;
+
+    @Autowired
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -131,7 +140,13 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .and()
             // session管理
             .sessionManagement()
-                .invalidSessionUrl("/session/invalid")
+//                .invalidSessionUrl(invalidSessionStrategy)
+                .invalidSessionStrategy(invalidSessionStrategy)
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                // 当session数量达到最大的时候，阻止登录
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+                .expiredSessionStrategy(sessionInformationExpiredStrategy)
+                .and()
                 .and()
             // 下面这些 都是授权的配置
             .authorizeRequests()
