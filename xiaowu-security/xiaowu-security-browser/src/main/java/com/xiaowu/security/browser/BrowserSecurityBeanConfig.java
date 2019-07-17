@@ -1,5 +1,6 @@
 package com.xiaowu.security.browser;
 
+import com.xiaowu.security.browser.logout.XiaowuLogoutSuccessHandler;
 import com.xiaowu.security.browser.session.XiaowuExpiredSessionStrategy;
 import com.xiaowu.security.browser.session.XiaowuInvalidSessionStrategy;
 import com.xiaowu.security.core.properties.SecurityProperties;
@@ -41,9 +42,9 @@ public class BrowserSecurityBeanConfig {
 	 * 退出时的处理策略配置
 	 * @return
 	 */
-//	@Bean
-//	@ConditionalOnMissingBean(LogoutSuccessHandler.class)
-//	public LogoutSuccessHandler logoutSuccessHandler(){
-//		return new XiaowuLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
-//	}
+	@Bean
+	@ConditionalOnMissingBean(LogoutSuccessHandler.class)
+	public LogoutSuccessHandler logoutSuccessHandler(){
+		return new XiaowuLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
+	}
 }

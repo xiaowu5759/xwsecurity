@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+/**
+ * 对象和属性，都需要实现序列化
+ */
 public class ImageCode extends ValidateCode {
 
     private BufferedImage image;  // 验证码图片

@@ -13,6 +13,9 @@ public class BrowserProperties {
 
     private String signUpUrl = "/xiaowu-signUp.html";
 
+    // 这个属性默认设置为空
+    private String signOutUrl ;
+
     // 登录响应的方式,默认是json，枚举类型
     private LoginType loginType = LoginType.JSON;
 

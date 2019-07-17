@@ -52,9 +52,10 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      */
     private void save(ServletWebRequest request, C validateCode) {
         // 保存code和过期时间
-//        ValidateCode code = new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
+        // 关于图片无法序列化，放入redis的问题
+        ValidateCode code = new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
         // 保存再session中
-        sessionStrategy.setAttribute(request,getSessionKey(request),validateCode);
+        sessionStrategy.setAttribute(request,getSessionKey(request),code);
     }
 
     private String getSessionKey(ServletWebRequest request) {

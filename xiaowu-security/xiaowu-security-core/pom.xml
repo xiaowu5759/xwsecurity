@@ -95,6 +95,13 @@
             <version>5.1.47</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+
+
 
         <!--&lt;!&ndash; 在有父项目的时候，版本得到控制 &ndash;&gt;-->
         <!--<dependency>-->
