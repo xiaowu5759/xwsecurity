@@ -6,6 +6,7 @@ import com.xiaowu.security.core.validate.code.ValidateCodeGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -18,6 +19,7 @@ import java.util.Random;
 @Setter
 // 生成get，set方法，最后在配置文件中，给它set进去
 // 这个时候就是 继承 抽象函数
+@Component("imageValidateCodeGenerator")
 public class ImageCodeGenerator implements ValidateCodeGenerator {
     @Autowired
     private SecurityProperties securityProperties;

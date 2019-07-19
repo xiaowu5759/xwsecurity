@@ -1,7 +1,7 @@
 package com.xiaowu.security.browser.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xiaowu.security.browser.support.SimpleResponse;
+import com.xiaowu.security.core.support.SimpleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;

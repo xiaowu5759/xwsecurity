@@ -1,9 +1,10 @@
-package com.xiaowu.security.browser.authentication;
+package com.xiaowu.security.app.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xiaowu.security.core.support.SimpleResponse;
+
 import com.xiaowu.security.core.properties.LoginType;
 import com.xiaowu.security.core.properties.SecurityProperties;
+import com.xiaowu.security.core.support.SimpleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -19,10 +19,17 @@ import java.util.Map;
 public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> implements ValidateCodeProcessor {
 
     // 操作session的工具类
-    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+//    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @Autowired
     private ValidateCodeRepository validateCodeRepository;
+
+    /**
+     * 收集系统中所有的{@link ValidateCodeGenerator}接口的实现
+     * 定向搜索
+     */
+    @Autowired
+    private Map<String,ValidateCodeGenerator> validateCodeGenerators;
 
     // 手机系统中所有的{@link ValidateCodeGenerator} 接口的实现
     // 自动注册的map
@@ -54,10 +61,14 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         // 保存code和过期时间
         // 关于图片无法序列化，放入redis的问题
         ValidateCode code = new ValidateCode(validateCode.getCode(),validateCode.getExpireTime());
-        // 保存再session中
-        sessionStrategy.setAttribute(request,getSessionKey(request),code);
+        validateCodeRepository.save(request,code,getValidateCodeType(request));
     }
 
+    /**
+     * 构建验证码放入session时的key
+     * @param request
+     * @return
+     */
     private String getSessionKey(ServletWebRequest request) {
         return SESSION_KEY_PREFIX + getProcessorType(request).toString().toUpperCase();
     }
@@ -69,10 +80,13 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * @return
      */
     private C generate(ServletWebRequest request) {
-        String type = getProcessorType(request);
-        ValidateCodeGenerator validateCodeGenerator = validateCodeGeneratorMap.get(type + "CodeGenerator");
-        // 调用生成方法
-        return (C)validateCodeGenerator.generate(request);
+        String type = getValidateCodeType(request).toString().toLowerCase();
+        String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
+        ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(generatorName);
+        if (validateCodeGenerator == null) {
+            throw new ValidateCodeException("验证码生成器" + generatorName + "不存在");
+        }
+        return (C) validateCodeGenerator.generate(request);
 
     }
 
@@ -131,6 +145,11 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         validateCodeRepository.remove(request, codeType);
     }
 
+    /**
+     * 根据请求的url获取校验码的类型
+     * @param request
+     * @return
+     */
     private ValidateCodeType getValidateCodeType(ServletWebRequest request) {
         String type = StringUtils.substringBefore(getClass().getSimpleName(), "CodeProcessor");
         return ValidateCodeType.valueOf(type.toUpperCase());

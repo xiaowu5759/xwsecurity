@@ -1,14 +1,11 @@
 package com.xiaowu.security.browser.logout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xiaowu.security.browser.support.SimpleResponse;
-import com.xiaowu.security.core.properties.SecurityProperties;
+import com.xiaowu.security.core.support.SimpleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
