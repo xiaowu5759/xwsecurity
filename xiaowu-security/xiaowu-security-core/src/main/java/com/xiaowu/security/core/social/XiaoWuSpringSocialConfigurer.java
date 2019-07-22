@@ -11,6 +11,8 @@ public class XiaowuSpringSocialConfigurer extends SpringSocialConfigurer {
 
     private String filterProcessesUrl;
 
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
+
     /**
      * 在构造函数中，将值传进来
      * @param filterProcessesUrl
@@ -20,7 +22,7 @@ public class XiaowuSpringSocialConfigurer extends SpringSocialConfigurer {
     }
 
     /**
-     *
+     * 后处理
      * @param object  // 就是放在filter链上的filter
      * @param <T>
      * @return
@@ -29,6 +31,25 @@ public class XiaowuSpringSocialConfigurer extends SpringSocialConfigurer {
     protected <T> T postProcess(T object) {
         SocialAuthenticationFilter filter = (SocialAuthenticationFilter)super.postProcess(object);
         filter.setFilterProcessesUrl(filterProcessesUrl);
+        if(socialAuthenticationFilterPostProcessor != null){
+            socialAuthenticationFilterPostProcessor.process(filter);
+        }
         return (T) filter;
+    }
+
+    public String getFilterProcessesUrl() {
+        return filterProcessesUrl;
+    }
+
+    public void setFilterProcessesUrl(String filterProcessesUrl) {
+        this.filterProcessesUrl = filterProcessesUrl;
+    }
+
+    public SocialAuthenticationFilterPostProcessor getSocialAuthenticationFilterPostProcessor() {
+        return socialAuthenticationFilterPostProcessor;
+    }
+
+    public void setSocialAuthenticationFilterPostProcessor(SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor) {
+        this.socialAuthenticationFilterPostProcessor = socialAuthenticationFilterPostProcessor;
     }
 }

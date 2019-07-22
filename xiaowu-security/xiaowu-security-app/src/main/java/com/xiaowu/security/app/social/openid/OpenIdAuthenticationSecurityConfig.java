@@ -1,6 +1,8 @@
 package com.xiaowu.security.app.social.openid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +17,7 @@ import org.springframework.social.security.SocialUserDetailsService;
  * @author XiaoWu
  * @date 2019/7/19 11:15
  */
+@Configuration
 public class OpenIdAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 	@Autowired
 	private AuthenticationSuccessHandler xiaowuAuthenticationSuccessHandler;
@@ -26,6 +29,7 @@ public class OpenIdAuthenticationSecurityConfig extends SecurityConfigurerAdapte
 	private SocialUserDetailsService userDetailsService;
 
 	@Autowired
+//	@Qualifier("jdbcUsersConnectionRepository")
 	private UsersConnectionRepository usersConnectionRepository;
 
 	/**

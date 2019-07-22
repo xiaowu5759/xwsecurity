@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * 实现接口
  * 返回唯一标识，不需要再次登录唯一标识
  */
-@Component
+//@Component
 public class DemoConnectionSignUp implements ConnectionSignUp {
     @Override
     public String execute(Connection<?> connection) {

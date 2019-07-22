@@ -1,5 +1,6 @@
 package com.xiaowu.security.app;
 
+import com.xiaowu.security.app.social.openid.OpenIdAuthenticationSecurityConfig;
 import com.xiaowu.security.core.authentication.mobile.SmsAuthenticaitonSecurityConfig;
 import com.xiaowu.security.core.properties.SecurityConstants;
 import com.xiaowu.security.core.properties.SecurityProperties;
@@ -47,6 +48,9 @@ public class XiaowuResourceServerConfig extends ResourceServerConfigurerAdapter 
 	@Autowired
 	private SpringSocialConfigurer xiaowuSocialSecurityConfig;
 
+	@Autowired
+	private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
+
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -59,6 +63,8 @@ public class XiaowuResourceServerConfig extends ResourceServerConfigurerAdapter 
 
 		// 至少是表单登录
 		http
+				.apply(openIdAuthenticationSecurityConfig)
+				.and()
 				.apply(validateCodeSecurityConfig)
 				.and()
 				// 短信验证相关的配置
@@ -76,7 +82,7 @@ public class XiaowuResourceServerConfig extends ResourceServerConfigurerAdapter 
 						securityProperties.getBrowser().getSignUpUrl(),
 						securityProperties.getBrowser().getSignOutUrl(),
 						SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",
-						"/user/regist","/social/user",
+						"/user/regist","/social/user","/social/signUp",
 						"/session/invalid").permitAll()
 				.anyRequest()
 				.authenticated()

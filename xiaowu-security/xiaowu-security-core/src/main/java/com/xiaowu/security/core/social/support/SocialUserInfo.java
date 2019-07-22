@@ -1,4 +1,4 @@
-package com.xiaowu.security.browser.support;
+package com.xiaowu.security.core.social.support;
 
 import lombok.Data;
 

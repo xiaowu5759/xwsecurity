@@ -1,6 +1,7 @@
 package com.xiaowu.controller;
 
 import com.xiaowu.entity.User;
+import com.xiaowu.security.app.social.AppSignUpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,9 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
+    @Autowired
+    private AppSignUpUtils appSignUpUtils;
+
     /**
      * 获取当前用户信息
      * @param userDetails
@@ -35,6 +39,7 @@ public class UserController {
         String userId = user.getUsername();
         // 从social中 拿到对应的信息放到userconnection的表中
 
-        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+//        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+        appSignUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
     }
 }

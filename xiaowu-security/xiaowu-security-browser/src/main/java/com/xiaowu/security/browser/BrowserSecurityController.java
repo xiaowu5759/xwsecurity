@@ -2,7 +2,7 @@ package com.xiaowu.security.browser;
 
 
 import com.xiaowu.security.core.support.SimpleResponse;
-import com.xiaowu.security.browser.support.SocialUserInfo;
+import com.xiaowu.security.core.social.support.SocialUserInfo;
 import com.xiaowu.security.core.properties.SecurityConstants;
 import com.xiaowu.security.core.properties.SecurityProperties;
 

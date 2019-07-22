@@ -35,8 +35,12 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired(required = false)  //不一定会提供,浏览器情况下就不需要做处理
     private ConnectionSignUp connectionSignUp;
 
+    // 接口可以直接注进去
+    @Autowired(required = false)  // 浏览器环境下就不做接口的实现
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
+
     /**
-     * 注册一个bean
+     * 注册一个bean,配置注册页，配置app成功处理器
      * xiaowuSocialSecurityConfig
      * @return
      */
@@ -46,6 +50,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
         XiaowuSpringSocialConfigurer xiaowuSpringSocialConfigurer = new XiaowuSpringSocialConfigurer(filterProcessUrl);
         // 设置我们自己的注册页
         xiaowuSpringSocialConfigurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
+        xiaowuSpringSocialConfigurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
         return xiaowuSpringSocialConfigurer;
 //        return new SpringSocialConfigurer;
     }
