@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -166,6 +167,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",
                         "/user/regist","/social/user",
                         "/session/invalid").permitAll()
+                // has_role "ROLE_ADMIN"
+                .antMatchers(HttpMethod.GET,"/user/*").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
