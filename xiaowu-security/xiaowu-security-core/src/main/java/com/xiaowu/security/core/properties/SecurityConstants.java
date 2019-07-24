@@ -30,7 +30,7 @@ public interface SecurityConstants {
     /**
      * session失效默认的跳转地址
      */
-    String DEFAULT_SESSION_INVALID_URL = "/xiaowu-session-invalid.html";
+    String DEFAULT_SESSION_INVALID_URL = "/xiaowu-session-invalid";
 
     /**
      * 默认的OPENID登录请求处理url

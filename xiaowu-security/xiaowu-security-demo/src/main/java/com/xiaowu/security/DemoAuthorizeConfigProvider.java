@@ -16,7 +16,8 @@ public class DemoAuthorizeConfigProvider implements AuthorizeConfigProvider {
 	@Override
 	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 		// 任何请求都需要 这样的规则
-		config.anyRequest().access("@rabcService.hasPermission(request,authentication)");
+//		config.anyRequest().access("@rabcService.hasPermission(request,authentication)");
+		config.antMatchers("/user").authenticated();
 		return true;
 	}
 }
