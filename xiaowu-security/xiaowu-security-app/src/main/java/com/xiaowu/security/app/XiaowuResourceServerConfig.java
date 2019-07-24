@@ -2,6 +2,7 @@ package com.xiaowu.security.app;
 
 import com.xiaowu.security.app.social.openid.OpenIdAuthenticationSecurityConfig;
 import com.xiaowu.security.core.authentication.mobile.SmsAuthenticaitonSecurityConfig;
+import com.xiaowu.security.core.authorize.AuthorizeConfigManager;
 import com.xiaowu.security.core.properties.SecurityConstants;
 import com.xiaowu.security.core.properties.SecurityProperties;
 import com.xiaowu.security.core.validate.code.ValidateCodeSecurityConfig;
@@ -51,6 +52,9 @@ public class XiaowuResourceServerConfig extends ResourceServerConfigurerAdapter 
 	@Autowired
 	private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
 
+	@Autowired
+	private AuthorizeConfigManager authorizeConfigManager;
+
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -74,19 +78,21 @@ public class XiaowuResourceServerConfig extends ResourceServerConfigurerAdapter 
 				.apply(xiaowuSocialSecurityConfig)
 				.and()
 			// 下面这些 都是授权的配置
-			.authorizeRequests()
-				.antMatchers(
-						SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-						SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-						securityProperties.getBrowser().getLoginPage(),
-						securityProperties.getBrowser().getSignUpUrl(),
-						securityProperties.getBrowser().getSignOutUrl(),
-						SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",
-						"/user/regist","/social/user","/social/signUp",
-						"/session/invalid").permitAll()
-				.anyRequest()
-				.authenticated()
-				.and()
+//			.authorizeRequests()
+//				.antMatchers(
+//						SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+//						SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+//						securityProperties.getBrowser().getLoginPage(),
+//						securityProperties.getBrowser().getSignUpUrl(),
+//						securityProperties.getBrowser().getSignOutUrl(),
+//						SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",
+//						"/user/regist","/social/user","/social/signUp",
+//						"/session/invalid").permitAll()
+//				.anyRequest()
+//				.authenticated()
+//				.and()
 				.csrf().disable();
+
+		authorizeConfigManager.config(http.authorizeRequests());
 	}
 }

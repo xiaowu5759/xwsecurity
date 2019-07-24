@@ -13,6 +13,7 @@
         <module>xiaowu-security-browser</module>
         <module>xiaowu-security-app</module>
         <module>xiaowu-security-demo</module>
+        <module>xiaowu-security-authorize</module>
     </modules>
 
     <!--声明一个变量-->

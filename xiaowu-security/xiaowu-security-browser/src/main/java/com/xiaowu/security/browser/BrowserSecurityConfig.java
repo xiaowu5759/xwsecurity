@@ -5,6 +5,7 @@ import com.xiaowu.security.browser.authentication.XiaowuAuthenticationSuccessHan
 import com.xiaowu.security.browser.session.XiaowuExpiredSessionStrategy;
 import com.xiaowu.security.core.authentication.AbstractChannelSecurityConfig;
 import com.xiaowu.security.core.authentication.mobile.SmsAuthenticaitonSecurityConfig;
+import com.xiaowu.security.core.authorize.AuthorizeConfigManager;
 import com.xiaowu.security.core.properties.SecurityConstants;
 import com.xiaowu.security.core.properties.SecurityProperties;
 import com.xiaowu.security.core.validate.code.ValidateCode;
@@ -85,6 +86,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -157,22 +161,24 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .deleteCookies("JSEESIONID")
                 .and()
             // 下面这些 都是授权的配置
-            .authorizeRequests()
-                .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
-                        securityProperties.getBrowser().getSignUpUrl(),
-                        securityProperties.getBrowser().getSignOutUrl(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",
-                        "/user/regist","/social/user",
-                        "/session/invalid").permitAll()
-                // has_role "ROLE_ADMIN"
-                .antMatchers(HttpMethod.GET,"/user/*").hasRole("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
+//            .authorizeRequests()
+//                .antMatchers(
+//                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+//                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+//                        securityProperties.getBrowser().getLoginPage(),
+//                        securityProperties.getBrowser().getSignUpUrl(),
+//                        securityProperties.getBrowser().getSignOutUrl(),
+//                        SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",
+//                        "/user/regist","/social/user",
+//                        "/session/invalid").permitAll()
+//                // has_role "ROLE_ADMIN"
+//                .antMatchers(HttpMethod.GET,"/user/*").hasRole("ADMIN")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
             .csrf().disable();
+
+        authorizeConfigManager.config(http.authorizeRequests());
 
 
 

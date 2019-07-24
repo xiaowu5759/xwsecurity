@@ -2,7 +2,7 @@ package com.xiaowu.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xiaowu.entity.User;
-import com.xiaowu.security.app.social.AppSignUpUtils;
+//import com.xiaowu.security.app.social.AppSignUpUtils;
 import com.xiaowu.security.core.properties.SecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -29,8 +29,8 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
-    @Autowired
-    private AppSignUpUtils appSignUpUtils;
+//    @Autowired
+//    private AppSignUpUtils appSignUpUtils;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -69,7 +69,7 @@ public class UserController {
         String userId = user.getUsername();
         // 从social中 拿到对应的信息放到userconnection的表中
 
-//        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-        appSignUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
+        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+//        appSignUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
     }
 }
