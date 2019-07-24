@@ -20,7 +20,7 @@ public class XiaowuAuthorizeConfigProvider implements AuthorizeConfigProvider {
 	private SecurityProperties securityProperties;
 
 	@Override
-	public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 		config.antMatchers(
 				SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
 				SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
@@ -29,8 +29,8 @@ public class XiaowuAuthorizeConfigProvider implements AuthorizeConfigProvider {
 				securityProperties.getBrowser().getSignUpUrl(),
 				securityProperties.getBrowser().getSignOutUrl(),
 				SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",
-				securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-				"/user/regist","/social/user"
+				securityProperties.getBrowser().getSession().getSessionInvalidUrl()
 				).permitAll();
+		return true;
 	}
 }
