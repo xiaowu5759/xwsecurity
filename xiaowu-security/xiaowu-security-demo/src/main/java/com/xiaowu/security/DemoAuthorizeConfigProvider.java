@@ -14,10 +14,11 @@ import org.springframework.stereotype.Component;
 @Order(Integer.MAX_VALUE)
 public class DemoAuthorizeConfigProvider implements AuthorizeConfigProvider {
 	@Override
-	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+	public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) {
 		// 任何请求都需要 这样的规则
 //		config.anyRequest().access("@rabcService.hasPermission(request,authentication)");
-		config.antMatchers("/user").authenticated();
-		return true;
+//		authorizeRequests.antMatchers("/user/me").authenticated();
+		authorizeRequests.anyRequest().authenticated();
+//		return true;
 	}
 }

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class RbacAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
 	@Override
-	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+	public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 		config
 			.antMatchers(HttpMethod.GET, "/fonts/**").permitAll()
 			.antMatchers(HttpMethod.GET, 
@@ -25,7 +25,7 @@ public class RbacAuthorizeConfigProvider implements AuthorizeConfigProvider {
 					"/resource").authenticated()
 			.anyRequest()
 				.access("@rbacService.hasPermission(request, authentication)");
-		return true;
+//		return true;
 	}
 
 }

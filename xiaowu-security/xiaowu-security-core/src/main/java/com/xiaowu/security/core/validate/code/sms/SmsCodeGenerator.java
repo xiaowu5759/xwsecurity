@@ -12,8 +12,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 @Component("smsValidateCodeGenerator")
 // 不需要多样的生成逻辑
-@Getter
-@Setter
 public class SmsCodeGenerator implements ValidateCodeGenerator {
 
     @Autowired
@@ -24,5 +22,13 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
         // 长度可配置
         String code = RandomStringUtils.randomNumeric(securityProperties.getCode().getSms().getLength());
         return new ValidateCode(code, securityProperties.getCode().getSms().getExpireIn());
+    }
+
+    public SecurityProperties getSecurityProperties() {
+        return securityProperties;
+    }
+
+    public void setSecurityProperties(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
     }
 }

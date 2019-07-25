@@ -15,8 +15,6 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 
-@Getter
-@Setter
 // 生成get，set方法，最后在配置文件中，给它set进去
 // 这个时候就是 继承 抽象函数
 @Component("imageValidateCodeGenerator")
@@ -86,5 +84,13 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
 
         return new Color(r, g, b);
 
+    }
+
+    public SecurityProperties getSecurityProperties() {
+        return securityProperties;
+    }
+
+    public void setSecurityProperties(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
     }
 }

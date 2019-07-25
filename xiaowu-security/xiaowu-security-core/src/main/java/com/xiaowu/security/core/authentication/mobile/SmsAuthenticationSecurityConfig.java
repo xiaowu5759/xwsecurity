@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * 在其他包里面直接引入
  */
 @Configuration
-public class SmsAuthenticaitonSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired
     private AuthenticationSuccessHandler xiaowuAuthenticationSuccessHandler;
@@ -43,8 +43,9 @@ public class SmsAuthenticaitonSecurityConfig extends SecurityConfigurerAdapter<D
 
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
         smsAuthenticationProvider.setUserDetailsService(userDetailsService);
-
+        // 将自定义的AuthenticationProvider添加到AuthenticationManager所管理的Provider集合里面去
         http.authenticationProvider(smsAuthenticationProvider)
+                // 将过滤器添加到用户名密码验证过滤器的后面就行
                 .addFilterAfter(smsAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
     }
 }

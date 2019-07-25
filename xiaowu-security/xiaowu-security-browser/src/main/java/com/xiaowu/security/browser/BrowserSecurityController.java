@@ -62,7 +62,7 @@ public class BrowserSecurityController {
                 // 做跳转
                 // 不是永远只传到 标准的登录页
 //                log.info(securityProperties.getBrowser().getLoginPage());
-                redirectStrategy.sendRedirect(request,response,securityProperties.getBrowser().getLoginPage());
+                redirectStrategy.sendRedirect(request,response,securityProperties.getBrowser().getSignInUrl());
 //                跳转走了，不继续执行
              }
         }

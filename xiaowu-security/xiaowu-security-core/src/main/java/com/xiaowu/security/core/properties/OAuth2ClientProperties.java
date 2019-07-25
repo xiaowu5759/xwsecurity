@@ -15,5 +15,5 @@ public class OAuth2ClientProperties {
 
 	private String clientSecret;
 
-	private int accessTokenValiditySeconds = 3600;
+	private int accessTokenValiditySeconds = 7200;
 }

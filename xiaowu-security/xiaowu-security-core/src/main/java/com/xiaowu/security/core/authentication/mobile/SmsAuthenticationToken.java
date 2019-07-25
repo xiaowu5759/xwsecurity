@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 public class SmsAuthenticationToken extends AbstractAuthenticationToken {
-    private static final long serialVersionUID = 500L;
+
     // 存放认证信息的，登录之前放手机号，登录之后放登录成功的用户
     private final Object principal;
     // 这里是密码 ？
