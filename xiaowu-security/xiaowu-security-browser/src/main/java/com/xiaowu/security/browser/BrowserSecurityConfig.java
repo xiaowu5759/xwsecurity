@@ -3,12 +3,14 @@ package com.xiaowu.security.browser;
 import com.xiaowu.security.core.authentication.AbstractChannelSecurityConfig;
 import com.xiaowu.security.core.authentication.mobile.SmsAuthenticationSecurityConfig;
 import com.xiaowu.security.core.authorize.AuthorizeConfigManager;
+import com.xiaowu.security.core.properties.SecurityConstants;
 import com.xiaowu.security.core.properties.SecurityProperties;
 
 import com.xiaowu.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -152,7 +154,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 //                .antMatchers(
 //                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
 //                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-//                        securityProperties.getBrowser().getLoginPage(),
+//                        securityProperties.getBrowser().getSignInUrl(),
 //                        securityProperties.getBrowser().getSignUpUrl(),
 //                        securityProperties.getBrowser().getSignOutUrl(),
 //                        SecurityConstants.DEFAULT_VALIDATE_CODE_URI_PREFIX+"/*",

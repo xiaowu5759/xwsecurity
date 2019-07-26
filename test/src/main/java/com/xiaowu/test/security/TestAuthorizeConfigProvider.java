@@ -1,4 +1,4 @@
-package com.xiaowu.security.testsecurity.security;
+package com.xiaowu.test.security;
 
 import com.xiaowu.security.core.authorize.AuthorizeConfigProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,11 +7,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author XiaoWu
- * @date 2019/7/25 14:29
+ * @date 2019/7/26 13:19
  */
 @Component
 public class TestAuthorizeConfigProvider implements AuthorizeConfigProvider {
-	@Override
 	public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) {
 		authorizeRequests.anyRequest().authenticated();
 	}
