@@ -5,7 +5,7 @@
     <parent>
         <artifactId>xiaowu-security</artifactId>
         <groupId>com.xiaowu.security</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.xiaowu.security</groupId>
             <artifactId>xiaowu-security-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${xiaowu.security.version}</version>
         </dependency>
 
         <!--lombok（简化代码）-->

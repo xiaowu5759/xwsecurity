@@ -7,7 +7,7 @@
     <groupId>com.xiaowu.security</groupId>
     <artifactId>xiaowu-security</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <modules>
         <module>xiaowu-security-core</module>
         <module>xiaowu-security-browser</module>
@@ -18,7 +18,7 @@
 
     <!--声明一个变量-->
     <properties>
-        <xiaowu.security.version>1.0-SNAPSHOT</xiaowu.security.version>
+        <xiaowu.security.version>1.0.0</xiaowu.security.version>
     </properties>
 
     <dependencyManagement>
