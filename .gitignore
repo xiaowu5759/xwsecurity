@@ -1,10 +1,11 @@
 ### 本项目的 ### 
 HELP.md
 target/
-.mvn
+.mvn/
 mvnw
 mvnw.cmd
 !.mvn/wrapper/maven-wrapper.jar
+test/
 
 ## document ##
 *.xlx

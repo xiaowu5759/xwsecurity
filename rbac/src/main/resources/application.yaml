@@ -1,0 +1,22 @@
+server:
+    port: 9090
+
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/rbac?useSSL=false
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.jdbc.Driver
+
+    mvc:
+        # 出现错误时，直接抛出异常
+        throw-exception-if-no-handler-found: true
+
+    # 如果SpringBoot项目中static下存放静态文件，即非前后端分离模式，设置spring.resources.add-mappings=false后静态文件访问不到。
+    resources:
+        # 不要为我们工程中的资源文件建立映射
+        add-mappings: true
+
+mybatis:
+    mapperLocations: classpath:mapper/*.xml
+
